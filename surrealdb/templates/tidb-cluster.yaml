@@ -1,0 +1,33 @@
+apiVersion: pingcap.com/v1alpha1
+kind: TidbCluster
+metadata:
+  name: {{ .Values.tikv.name | default "surreal-tikv" }}
+spec:
+  version: v6.1.0
+  timezone: UTC
+  pvReclaimPolicy: Retain
+  enableDynamicConfiguration: true
+  configUpdateStrategy: RollingUpdate
+  discovery: { }
+  helper:
+    image: alpine:3.16.0
+  pd:
+    baseImage: pingcap/pd
+    maxFailoverCount: 0
+    replicas: {{ ((.Values.replicas).tidb).pd | default 3 }}
+    requests:
+      storage: "1Gi"
+    config: { }
+  tikv:
+    baseImage: pingcap/tikv
+    maxFailoverCount: 0
+    # If only 1 TiKV is deployed, the TiKV region leader 
+    # cannot be transferred during upgrade, so we have
+    # to configure a short timeout
+    evictLeaderTimeout: 1m
+    replicas: {{ ((.Values.replicas).tidb).tikv | default 3 }}
+    requests:
+      storage: "1Gi"
+    config: { }
+  tidb:
+    replicas: 0

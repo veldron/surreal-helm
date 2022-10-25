@@ -11,7 +11,7 @@ surrealdb:
 tikv:
   name: surreal-tikv
 replicas:
-  tikv:
+  tidb:
     pd: 3
     tikv: 3
   surrealdb: 3
