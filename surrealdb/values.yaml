@@ -1,0 +1,17 @@
+surrealdb:
+  user: root
+  pass: root
+  ingress:
+    enabled: false
+    annotations:
+      kubernetes.io/ingress.class: nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod
+    host: ~
+
+tikv:
+  name: surreal-tikv
+replicas:
+  tikv:
+    pd: 3
+    tikv: 3
+  surrealdb: 3

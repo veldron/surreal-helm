@@ -1,0 +1,42 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: surrealdb
+  name: surrealdb
+spec:
+  replicas: {{ .Values.replicas.surrealdb | default 1 }}
+  selector:
+    matchLabels:
+      app: surrealdb
+  template:
+    metadata:
+      labels:
+        app: surrealdb
+    spec:
+      containers:
+        - args:
+            - start
+            - --log=trace
+            - --user={{ .Values.surrealdb.user | default "root" }}
+            - --pass={{ .Values.surrealdb.pass | default "root" }}
+            - tikv://{{ .Values.tikv.name | default "surreal-tikv" }}-pd:2379
+          image: surrealdb/surrealdb:latest
+          name: surrealdb
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: surrealdb
+  name: surrealdb
+spec:
+  ports:
+    - name: "surreal-rpc"
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: surrealdb

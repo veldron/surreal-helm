@@ -1,0 +1,11 @@
+apiVersion: v2
+name: surrealdb
+description: TiKV backed surrealdb cluster
+
+type: application
+version: 0.1.0
+appVersion: "1.16.0"
+dependencies:
+  - repository: https://charts.pingcap.org/
+    name: tikv-operator
+    version: v0.1.0
