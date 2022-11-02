@@ -17,12 +17,12 @@ spec:
     replicas: {{ ((.Values.replicas).tidb).pd | default 3 }}
     requests:
       storage: "1Gi"
-    config: { }
+    config: ''
   tikv:
     baseImage: pingcap/tikv
     maxFailoverCount: 0
     replicas: {{ ((.Values.replicas).tidb).tikv | default 3 }}
     requests:
       storage: "1Gi"
-    config: { }
+    config: ''
 
