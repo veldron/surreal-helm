@@ -3,7 +3,7 @@ kind: TidbCluster
 metadata:
   name: {{ .Values.tikv.name | default "surreal-tikv" }}
 spec:
-  version: v6.1.12
+  version: v6.3.0
   timezone: UTC
   pvReclaimPolicy: Retain
   enableDynamicConfiguration: true
