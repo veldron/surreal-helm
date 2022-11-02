@@ -25,5 +25,4 @@ spec:
     requests:
       storage: "1Gi"
     config: { }
-  tidb:
-    replicas: 0
+
