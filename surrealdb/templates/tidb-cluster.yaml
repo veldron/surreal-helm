@@ -26,5 +26,5 @@ spec:
       storage: "1Gi"
     config:
       storage:
-        reserve-space: 0
+        reserve-space: "0"
 
