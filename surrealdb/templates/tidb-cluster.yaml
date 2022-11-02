@@ -24,7 +24,7 @@ spec:
     replicas: {{ ((.Values.replicas).tidb).tikv | default 3 }}
     requests:
       storage: "1Gi"
-    config:
-      storage:
-        reserve-space: "0"
+    config: |
+      [storage]
+        reserve-space = "0"
 
