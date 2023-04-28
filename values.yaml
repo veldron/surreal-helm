@@ -1,6 +1,8 @@
+targetNamespace: my-app
 surrealdb:
-  user: root
-  pass: root
+  secretFileName: surrealdb-secret
+  # user: root # optional, the chart will generate random user if not set
+  # password: root # optional, the chart will generate random password if not set
   image:
     tag: latest
   logging:
