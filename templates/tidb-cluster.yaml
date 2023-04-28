@@ -16,7 +16,7 @@ spec:
     maxFailoverCount: 0
     replicas: {{ ((.Values.replicas).tidb).pd | default 3 }}
     requests:
-      storage: "1Gi"
+      storage: {{ .Values.tikv.storage | default "1Gi" }}
     config: ''
   tikv:
     baseImage: pingcap/tikv
