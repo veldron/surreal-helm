@@ -20,24 +20,50 @@ This repo was cloned from https://gitlab.com/karpfediem/surrealdb-helm
 ### Values for this chart
 
 ```yaml
+hooks:
+  post-install:
+    enabled: true # don't change, use it to copy the secret to your web application namespace
+appName: surrealdb
+targetNamespace: my-app # namespace where the secret will be copied to, useful in your web application namespace
 surrealdb:
-  user: root #Username 
-  pass: root #Password
+  secretFileName: surrealdb-secret
+  # user: root # optional, the chart will generate random user if not set
+  # password: root # optional, the chart will generate random password if not set
+  image:
+    tag: latest # optional, default to latest
+  logging:
+    level: trace # optional, default to info
   ingress:
-    enabled: false
+    enabled: false # optional, default to false
     annotations:
-      kubernetes.io/ingress.class: nginx
-      cert-manager.io/cluster-issuer: letsencrypt-prod
+      kubernetes.io/ingress.class: nginx # optional, default to nginx
+      cert-manager.io/cluster-issuer: letsencrypt-prod # optional, cert-manager cluster issuer name
     host: ~
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
 
 tikv:
-  name: surreal-tikv # name name of tikv cluster
-  storage: 10Gi # storage size for tikv
+  name: surreal-tikv
+  storage: 1Gi # optional, default to 1Gi storage for tikv data
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+  storageClassName: standard # optional, default to standard, tested with longhorn and standard, 
 replicas:
   tidb:
-    pd: 3 # number of pd replicas
-    tikv: 3 # number of tikv replicas
-  surrealdb: 3 # number of surrealdb replicas
+    pd: 3 # optional, default to 3
+    tikv: 3 # optional, default to 3
+  surrealdb: 2 # optional, default to 2
+
 ```
 ## Installing the Chart
 

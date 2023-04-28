@@ -19,7 +19,7 @@ spec:
       containers:
         - args:
             - start
-            - --log={{ .Values.surrealdb.logging.level | default "trace" }} # Added configurable log level
+            - --log={{ .Values.surrealdb.logging.level | default "info" }} # Added configurable log level
             - --user=$(SURREALDB_USER)
             - --pass=$(SURREALDB_PASS)
             # - --user={{ .Values.surrealdb.user | default "root" }}
