@@ -17,7 +17,8 @@ This repo was cloned from https://gitlab.com/karpfediem/surrealdb-helm
     ```
 
 
-### Values for this chart
+
+## Values for chart
 
 ```yaml
 hooks:
