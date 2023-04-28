@@ -1,17 +1,37 @@
 surrealdb:
   user: root
   pass: root
+  image:
+    tag: latest
+  logging:
+    level: trace
   ingress:
     enabled: false
     annotations:
       kubernetes.io/ingress.class: nginx
       cert-manager.io/cluster-issuer: letsencrypt-prod
     host: ~
+  resources:
+    limits:
+      cpu: 100m
+      memory: 256Mi
+    requests:
+      cpu: 50m
+      memory: 64Mi
 
 tikv:
   name: surreal-tikv
+  storage: 10Gi
+  resources:
+    limits:
+      cpu: 1000m
+      memory: 2Gi
+    requests:
+      cpu: 500m
+      memory: 1Gi
+  storageClassName: longhorn
 replicas:
   tidb:
     pd: 3
     tikv: 3
-  surrealdb: 3
+  surrealdb: 2

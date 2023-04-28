@@ -9,3 +9,7 @@ dependencies:
   - repository: https://charts.pingcap.org/
     name: tidb-operator
     version: v1.3.9
+    condition: "true"
+    # crds:
+    #   - name: tidbclusters.pingcap.com
+    #     version: v1alpha1
