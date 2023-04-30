@@ -1,6 +1,0 @@
-dependencies:
-- name: tidb-operator
-  repository: https://charts.pingcap.org/
-  version: v1.3.9
-digest: sha256:33279527ba16a382b26593adf0585484097003a904cc17b2ad9010aa85461c82
-generated: "2023-04-28T13:53:42.79701896+02:00"
