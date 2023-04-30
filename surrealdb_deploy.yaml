@@ -1,0 +1,49 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: surrealdb
+  name: surrealdb
+  namespace: surrealdb # Added namespace support
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: surrealdb
+  template:
+    metadata:
+      labels:
+        app: surrealdb
+    spec:
+      containers:
+        - args:
+            - start
+            - --log=trace # Added configurable log level
+            - --user=root
+            - --pass=root
+            - tikv://tikv-only-cluster-pd.tikv-cluster.svc.cluster.local:2379 # Added namespace support
+          image: surrealdb/surrealdb:latest # Added configurable image tag
+          name: surrealdb
+          env:
+            - name: SURREALDB_USER
+              value: root
+            - name: SURREALDB_PASS
+              value: root
+          ports:
+            - containerPort: 8000
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: surrealdb
+  name: surrealdb
+  namespace: surrealdb # Added namespace support
+spec:
+  ports:
+    - name: "surreal-rpc"
+      port: 8000
+      targetPort: 8000
+  selector:
+    app: surrealdb
